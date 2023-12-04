@@ -1,0 +1,43 @@
+type Query{
+    jobs(limit: Int, offset: Int): JobSubList
+    job(id: ID!):Job
+    company(id:ID!):Company
+}
+
+type JobSubList {
+  items: [Job!]!
+  totalCount: Int!
+}
+type Mutation {
+    createJob(input:createJobInput!):Job
+    deleteJob(id:ID!):Job
+    updateJob(input: updateJobInput!):Job
+}
+
+type Company {
+    id:ID!
+    name:String!
+    description:String
+    jobs: [Job!]!
+}
+
+type Job{
+    id: ID!
+    """This is the timestamp of the creation of the job ISO 8601 format."""
+    date:String!
+    title: String!
+    company: Company!
+    description: String
+
+}
+
+input createJobInput{
+    title:String!
+    description:String
+}
+
+input updateJobInput{
+    id:ID!
+    title:String
+    description:String
+}
